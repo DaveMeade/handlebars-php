@@ -226,8 +226,14 @@ class Context
      * @throws InvalidArgumentException in strict mode and variable not found
      * @return mixed
      */
-    public function get($variableName, $strict = false)
+    public function get($variableName = null, $strict = false)
     {
+        // if no variable name is provided, return the entire context
+        // this is useful in custom helpers
+        if ($variableName === null) {
+            return $this->last();
+        }
+                
         //Need to clean up
         $variableName = trim($variableName);
 
